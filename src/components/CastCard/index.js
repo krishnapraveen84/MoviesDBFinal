@@ -39,11 +39,13 @@ class CastCard extends Component {
       this.setState({status: diffStates.fail})
     }
   }
+
   renderLoader = () => (
     <div className="loader-container">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
+
   renderSuccessView = () => {
     const {castData} = this.state
     // console.log(castData)
@@ -67,6 +69,7 @@ class CastCard extends Component {
       </ul>
     )
   }
+
   renderDiffrentViews = () => {
     const {status} = this.state
     switch (status) {
@@ -80,6 +83,7 @@ class CastCard extends Component {
         return null
     }
   }
+
   render() {
     return <div className="cast-container">{this.renderDiffrentViews()}</div>
   }

@@ -18,12 +18,15 @@ class TopRated extends Component {
   state = {
     status: diffStates.inProgress,
     movieData: [],
+    pageNo: 1,
   }
-  componentDidMount = async () => {
+
+  getTopRatedData = async () => {
     const API_KEY = '76a3b00b83c8438422c7b7eb425b0645'
+    const {pageNo} = this.state
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=1`,
+        `https://api.themoviedb.org/3/movie/top_rated?api_key=${API_KEY}&language=en-US&page=${pageNo}`,
       )
       const data = await response.json()
       const updatedData = data.results.map(each => ({
@@ -48,8 +51,30 @@ class TopRated extends Component {
       this.setState({status: diffStates.fail})
     }
   }
+
+  componentDidMount = async () => {
+    this.getTopRatedData()
+  }
+
+  onClickNxt = () => {
+    this.setState(
+      prev => ({pageNo: prev.pageNo + 1, status: diffStates.inProgress}),
+      this.getTopRatedData,
+    )
+  }
+
+  onClickPrev = () => {
+    const {pageNo} = this.state
+    if (pageNo > 1) {
+      this.setState(
+        prev => ({pageNo: prev.pageNo - 1, status: diffStates.inProgress}),
+        this.getTopRatedData,
+      )
+    }
+  }
+
   renderSuccessView = () => {
-    const {movieData} = this.state
+    const {movieData, pageNo} = this.state
     console.log('toprated', movieData)
     return (
       <div className="movies-container">
@@ -59,14 +84,33 @@ class TopRated extends Component {
             <MovieCard key={`top-rated${each.id}`} movieDetails={each} />
           ))}
         </ul>
+        <div className="pagination-div">
+          <button
+            type="button"
+            onClick={this.onClickPrev}
+            className="paginations-btn prev-btn"
+          >
+            Prev
+          </button>
+          <p className="page-num">{pageNo}</p>
+          <button
+            type="button"
+            onClick={this.onClickNxt}
+            className="paginations-btn nxt-btn"
+          >
+            Next
+          </button>
+        </div>
       </div>
     )
   }
+
   renderLoader = () => (
     <div className="loader-container">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
+
   renderDiffrentViews = () => {
     const {status} = this.state
     switch (status) {
@@ -80,6 +124,7 @@ class TopRated extends Component {
         return null
     }
   }
+
   render() {
     return (
       <div className="home-container">

@@ -1,18 +1,15 @@
 import {useState, useEffect} from 'react'
 
 import {Link} from 'react-router-dom'
-
-import {IoIosSearch} from 'react-icons/io'
+import Loader from 'react-loader-spinner'
+import {IoIosSearch, IoMdClose, IoMdMenu} from 'react-icons/io'
 
 import './index.css'
-
-import MovieCard from '../MovieCard'
-
-import {IoMdClose, IoMdMenu} from 'react-icons/io'
 
 import {MdHome, MdSchedule} from 'react-icons/md'
 
 import {RxArrowTopRight} from 'react-icons/rx'
+import MovieCard from '../MovieCard'
 
 const apiStatusConstants = {
   initial: 'INITIAL',
@@ -74,22 +71,20 @@ const Header = () => {
   // .....................
   const {data, status} = apiResponse
 
-  const renderSuccessView = () => {
-    return (
-      <div className="search-movies-container movies-container">
-        <h1 className="heading">Search Result</h1>
-        <ul className="movies-list-container">
-          {data.map(each => (
-            <MovieCard
-              isSearchResult={true}
-              key={`details${each.id}`}
-              movieDetails={each}
-            />
-          ))}
-        </ul>
-      </div>
-    )
-  }
+  const renderSuccessView = () => (
+    <div className="search-movies-container movies-container">
+      <h1 className="heading">Search Result</h1>
+      <ul className="movies-list-container">
+        {data.map(each => (
+          <MovieCard
+            isSearchResult
+            key={`details${each.id}`}
+            movieDetails={each}
+          />
+        ))}
+      </ul>
+    </div>
+  )
   const renderLoader = () => (
     <div className="loader-container">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />

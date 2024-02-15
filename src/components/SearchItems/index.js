@@ -18,6 +18,7 @@ class SearchItem extends Component {
     status: diffStates.inProgress,
     movieData: [],
   }
+
   componentDidMount = async () => {
     const API_KEY = '76a3b00b83c8438422c7b7eb425b0645'
     try {
@@ -47,6 +48,7 @@ class SearchItem extends Component {
       this.setState({status: diffStates.fail})
     }
   }
+
   renderSuccessView = () => {
     const {movieData} = this.state
     // console.log(movieData)
@@ -61,11 +63,13 @@ class SearchItem extends Component {
       </div>
     )
   }
+
   renderLoader = () => (
     <div className="loader-container">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
+
   renderDiffrentViews = () => {
     const {status} = this.state
     switch (status) {
@@ -79,6 +83,7 @@ class SearchItem extends Component {
         return null
     }
   }
+
   render() {
     return (
       <div className="home-container">

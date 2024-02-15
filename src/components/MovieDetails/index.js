@@ -19,6 +19,7 @@ class MovieDetails extends Component {
     status: diffStates.inProgress,
     movieDetailsData: [],
   }
+
   componentDidMount = async () => {
     const API_KEY = '76a3b00b83c8438422c7b7eb425b0645'
     const {match} = this.props
@@ -51,21 +52,19 @@ class MovieDetails extends Component {
     }
     this.setState({status: diffStates.success, movieDetailsData: updatedData})
   }
+
   renderSuccessView = () => {
     const {movieDetailsData} = this.state
     const {
       id,
       originalLanguage,
-      originalTitle,
       overview,
       backdropPath,
       posterPath,
       releaseDate,
       title,
-      video,
       runtime,
       voteAverage,
-      voteCount,
       tagline,
       genres,
     } = movieDetailsData
@@ -73,31 +72,31 @@ class MovieDetails extends Component {
     const imgUrlLg = `https://image.tmdb.org/t/p/w500/${posterPath}`
 
     return (
-      <div className='specific-container'>
-        <img className='specific-img-sm' src={imgUrl} alt='specific-img' />
-        <img className='specific-img-lg' src={imgUrlLg} alt='specific-img' />
-        <div className='content-container'>
-          <h1 className='movie-specific-name'>{title}</h1>
-          <p className='tag-line'>{tagline}</p>
-          <p className='description'>{overview}</p>
-          <div className='wrapper'>
-            <p className='movie-rating'>IMDB {voteAverage.toFixed(1)}</p>
-            <p className='movie-rating'>{runtime} min</p>
-            <p className='date'>{releaseDate.split('-')[0]}</p>
-            <p className='language'>{originalLanguage.toUpperCase()}</p>
+      <div className="specific-container">
+        <img className="specific-img-sm" src={imgUrl} alt="specific-img" />
+        <img className="specific-img-lg" src={imgUrlLg} alt="specific-img" />
+        <div className="content-container">
+          <h1 className="movie-specific-name">{title}</h1>
+          <p className="tag-line">{tagline}</p>
+          <p className="description">{overview}</p>
+          <div className="wrapper">
+            <p className="movie-rating">IMDB {voteAverage.toFixed(1)}</p>
+            <p className="movie-rating">{runtime} min</p>
+            <p className="date">{releaseDate.split('-')[0]}</p>
+            <p className="language">{originalLanguage.toUpperCase()}</p>
           </div>
-          <div className='genre-wrapper'>
-            <p className='genre-name'>{genres['0'].name}</p>
-            <p className='genre-name'>.</p>
-            <p className='genre-name'>{genres['1'].name}</p>
+          <div className="genre-wrapper">
+            <p className="genre-name">{genres['0'].name}</p>
+            <p className="genre-name">.</p>
+            <p className="genre-name">{genres['1'].name}</p>
             {genres['2'] ? (
               <>
-                <p className='genre-name'>.</p>
-                <p className='genre-name'>{genres['2'].name}</p>
+                <p className="genre-name">.</p>
+                <p className="genre-name">{genres['2'].name}</p>
               </>
             ) : null}
           </div>
-          <h1 className='cast'>Cast</h1>
+          <h1 className="cast">Cast</h1>
           <CastCard id={id} />
         </div>
       </div>
@@ -105,8 +104,8 @@ class MovieDetails extends Component {
   }
 
   renderLoader = () => (
-    <div className='loader-container'>
-      <Loader type='ThreeDots' color='#0b69ff' height='50' width='50' />
+    <div className="loader-container">
+      <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
 
@@ -118,14 +117,15 @@ class MovieDetails extends Component {
       case diffStates.success:
         return this.renderSuccessView()
       case diffStates.fail:
-        return <h1 className='failure-mesg'>Error</h1>
+        return <h1 className="failure-mesg">Error</h1>
       default:
         return null
     }
   }
+
   render() {
     return (
-      <div className='movie-details-container'>
+      <div className="movie-details-container">
         <Header />
         {this.renderDiffrentViews()}
       </div>

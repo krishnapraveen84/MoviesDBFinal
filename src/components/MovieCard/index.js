@@ -1,8 +1,9 @@
 import './index.css'
 import {Link} from 'react-router-dom'
+
 const MovieCard = props => {
   const {movieDetails, isSearchResult} = props
-  const {id, title, posterPath, voteAverage, originalLanguage} = movieDetails
+  const {id, title, posterPath, voteAverage} = movieDetails
   const imgUrl = `https://image.tmdb.org/t/p/w500/${posterPath}`
   return (
     <Link to={`/movie/${id}`} className="movie-link">
@@ -14,7 +15,9 @@ const MovieCard = props => {
         </div>
         {isSearchResult ? (
           <Link to={`/movie/${id}`} className="movie-link">
-            <button className="view-more">View More</button>
+            <button type="button" className="view-more">
+              View More
+            </button>
           </Link>
         ) : (
           ''
